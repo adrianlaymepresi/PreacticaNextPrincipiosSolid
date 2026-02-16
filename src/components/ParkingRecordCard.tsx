@@ -57,33 +57,37 @@ export default function ParkingRecordCard({ record, onRegisterExit }: ParkingRec
 
 const styles = {
   card: {
-    border: '1px solid #ddd',
-    borderRadius: '8px',
+    border: '3px solid #e8f5e9',
+    borderRadius: '16px',
     padding: '16px',
     margin: '8px',
-    backgroundColor: '#fff',
-    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+    backgroundColor: '#ffffff',
+    boxShadow: '0 6px 20px rgba(109, 76, 65, 0.15)',
+    transition: 'transform 0.2s',
   },
   active: {
-    color: '#2e7d32',
+    color: '#4a7c3c',
     fontWeight: 'bold',
+    fontSize: '16px',
   },
   duration: {
-    color: '#666',
+    color: '#8d6e63',
   },
   feeCharged: {
-    color: '#1976d2',
+    color: '#2d5016',
     fontWeight: 'bold',
     fontSize: '16px',
     marginTop: '8px',
   },
   button: {
-    backgroundColor: '#d32f2f',
-    color: 'white',
+    background: 'linear-gradient(135deg, #6d4c41 0%, #5d4037 100%)',
+    color: '#faf8f3',
     border: 'none',
     padding: '10px 20px',
-    borderRadius: '4px',
+    borderRadius: '8px',
     cursor: 'pointer',
     marginTop: '8px',
+    fontWeight: 'bold',
+    transition: 'transform 0.2s',
   },
 };

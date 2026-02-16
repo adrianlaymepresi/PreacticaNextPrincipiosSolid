@@ -417,13 +417,14 @@ export default function BirdsPage() {
 const styles = {
   container: {
     minHeight: '100vh',
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#f5f1e8',
   },
   header: {
-    backgroundColor: '#1976d2',
-    color: 'white',
+    background: 'linear-gradient(135deg, #2d5016 0%, #4a7c3c 100%)',
+    color: '#faf8f3',
     padding: '20px',
     textAlign: 'center' as const,
+    boxShadow: '0 4px 12px rgba(45, 80, 22, 0.3)',
   },
   nav: {
     marginTop: '16px',
@@ -432,11 +433,13 @@ const styles = {
     gap: '20px',
   },
   link: {
-    color: 'white',
+    color: '#faf8f3',
     textDecoration: 'none',
     padding: '8px 16px',
     backgroundColor: 'rgba(255,255,255,0.2)',
-    borderRadius: '4px',
+    borderRadius: '8px',
+    fontWeight: 'bold',
+    transition: 'background-color 0.3s',
   },
   main: {
     padding: '20px',
@@ -444,15 +447,17 @@ const styles = {
     margin: '0 auto',
   },
   section: {
-    backgroundColor: 'white',
+    backgroundColor: '#ffffff',
     padding: '20px',
-    borderRadius: '8px',
+    borderRadius: '16px',
     marginBottom: '20px',
+    boxShadow: '0 6px 20px rgba(109, 76, 65, 0.15)',
+    border: '2px solid #e8f5e9',
   },
   description: {
     fontSize: '16px',
     lineHeight: '1.6',
-    color: '#666',
+    color: '#8d6e63',
     marginBottom: '20px',
   },
   legend: {
@@ -492,10 +497,11 @@ const styles = {
   },
   // Estilos del formulario
   form: {
-    backgroundColor: '#f9f9f9',
+    background: 'linear-gradient(135deg, #faf8f3 0%, #f5f1e8 100%)',
     padding: '20px',
-    borderRadius: '8px',
-    border: '1px solid #ddd',
+    borderRadius: '16px',
+    border: '3px solid #4a7c3c',
+    boxShadow: '0 6px 20px rgba(109, 76, 65, 0.15)',
   },
   formGrid: {
     display: 'grid',
@@ -510,26 +516,29 @@ const styles = {
   label: {
     fontWeight: 'bold',
     marginBottom: '8px',
-    color: '#333',
+    color: '#6d4c41',
   },
   input: {
     padding: '10px',
-    borderRadius: '4px',
-    border: '1px solid #ddd',
+    borderRadius: '8px',
+    border: '2px solid #e8f5e9',
     fontSize: '14px',
     width: '100%',
     boxSizing: 'border-box' as const,
+    backgroundColor: '#ffffff',
+    transition: 'border-color 0.3s',
   },
   capabilitiesSection: {
     marginTop: '20px',
     marginBottom: '20px',
   },
   capabilityCard: {
-    backgroundColor: 'white',
+    backgroundColor: '#ffffff',
     padding: '16px',
-    borderRadius: '8px',
+    borderRadius: '12px',
     marginBottom: '12px',
-    border: '1px solid #e0e0e0',
+    border: '2px solid #e8f5e9',
+    boxShadow: '0 3px 10px rgba(109, 76, 65, 0.1)',
   },
   checkboxGroup: {
     display: 'flex',
@@ -541,11 +550,12 @@ const styles = {
     width: '20px',
     height: '20px',
     cursor: 'pointer',
+    accentColor: '#4a7c3c',
   },
   checkboxLabel: {
     fontSize: '16px',
     fontWeight: 'bold',
-    color: '#333',
+    color: '#2d5016',
     cursor: 'pointer',
   },
   capabilityDetails: {
@@ -556,14 +566,16 @@ const styles = {
     paddingLeft: '28px',
   },
   submitButton: {
-    backgroundColor: '#4caf50',
-    color: 'white',
+    background: 'linear-gradient(135deg, #4a7c3c 0%, #6b9a54 100%)',
+    color: '#faf8f3',
     padding: '12px 24px',
     border: 'none',
-    borderRadius: '4px',
+    borderRadius: '8px',
     fontSize: '16px',
     fontWeight: 'bold',
     cursor: 'pointer',
     width: '100%',
+    transition: 'transform 0.2s',
+    boxShadow: '0 3px 10px rgba(74, 124, 60, 0.3)',
   },
 };
