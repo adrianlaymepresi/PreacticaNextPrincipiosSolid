@@ -23,6 +23,12 @@ export interface IRunnable {
   getRunningSpeed(): number;
 }
 
+// Interfaz para aves que pueden caminar
+export interface IWalkable {
+  walk(): string;
+  getWalkingSpeed(): number;
+}
+
 // Clase base simple para todas las aves
 export abstract class Bird {
   constructor(public name: string, public species: string) {}

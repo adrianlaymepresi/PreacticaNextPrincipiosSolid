@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "id": "1z38g17jk",
+    "vehiclePlate": "2928KUA",
+    "entryTime": "2026-02-16T14:52:06.680Z",
+    "exitTime": "2026-02-16T15:18:20.736Z",
+    "vehicleType": "car",
+    "feeCharged": 10
+  },
+  {
+    "id": "gjz2gw9de",
+    "vehiclePlate": "1990KIL",
+    "entryTime": "2026-02-16T15:19:29.123Z",
+    "exitTime": null,
+    "vehicleType": "truck",
+    "feeCharged": null
+  }
+]

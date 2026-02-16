@@ -1,4 +1,4 @@
-import { Bird, IFlyable, ISwimmable, IRunnable } from '../../interfaces/BirdInterfaces';
+import { Bird, IFlyable, ISwimmable, IRunnable, IWalkable } from '../../interfaces/BirdInterfaces';
 
 // ============================================
 // PRINCIPIO: Interface Segregation Principle (ISP)
@@ -20,9 +20,13 @@ export interface BirdCapabilities {
     description: string;
     speed: number;
   };
+  canWalk?: {
+    description: string;
+    speed: number;
+  };
 }
 
-export class DynamicBird extends Bird implements Partial<IFlyable & ISwimmable & IRunnable> {
+export class DynamicBird extends Bird implements Partial<IFlyable & ISwimmable & IRunnable & IWalkable> {
   private capabilities: BirdCapabilities;
 
   constructor(name: string, species: string, capabilities: BirdCapabilities) {
@@ -75,6 +79,21 @@ export class DynamicBird extends Bird implements Partial<IFlyable & ISwimmable &
     return this.capabilities.canRun.speed;
   }
 
+  // Implementa IWalkable solo si tiene la capacidad
+  walk(): string {
+    if (!this.capabilities.canWalk) {
+      throw new Error(`${this.name} no puede caminar`);
+    }
+    return this.capabilities.canWalk.description || `${this.name} camina`;
+  }
+
+  getWalkingSpeed(): number {
+    if (!this.capabilities.canWalk) {
+      throw new Error(`${this.name} no puede caminar`);
+    }
+    return this.capabilities.canWalk.speed;
+  }
+
   // Métodos auxiliares para verificar capacidades
   canFlyCheck(): boolean {
     return !!this.capabilities.canFly;
@@ -86,6 +105,10 @@ export class DynamicBird extends Bird implements Partial<IFlyable & ISwimmable &
 
   canRunCheck(): boolean {
     return !!this.capabilities.canRun;
+  }
+
+  canWalkCheck(): boolean {
+    return !!this.capabilities.canWalk;
   }
 
   getCapabilities(): BirdCapabilities {

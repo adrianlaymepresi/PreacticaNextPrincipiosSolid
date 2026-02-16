@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import BirdCard from '../../components/BirdCard';
 import { DynamicBird, BirdCapabilities } from '../../models/birds/DynamicBird';
-import { IFlyable, ISwimmable, IRunnable } from '../../interfaces/BirdInterfaces';
+import { IFlyable, ISwimmable, IRunnable, IWalkable } from '../../interfaces/BirdInterfaces';
 import Link from 'next/link';
 
 // Interfaz para datos serializados
@@ -72,6 +72,9 @@ export default function BirdsPage() {
     canRun: false,
     runDescription: '',
     runSpeed: '',
+    canWalk: false,
+    walkDescription: '',
+    walkSpeed: '',
   });
 
   const getBirdAbilities = (bird: any): string[] => {
@@ -117,6 +120,19 @@ export default function BirdsPage() {
       }
     }
 
+    if ('walk' in bird && typeof bird.walk === 'function') {
+      if (bird instanceof DynamicBird && !bird.canWalkCheck()) {
+        // Skip
+      } else {
+        try {
+          const walkable = bird as IWalkable;
+          abilities.push(`🚶 ${walkable.walk()} (${walkable.getWalkingSpeed()} km/h)`);
+        } catch (e) {
+          // Skip if can't walk
+        }
+      }
+    }
+
     return abilities;
   };
 
@@ -128,7 +144,7 @@ export default function BirdsPage() {
       return;
     }
 
-    if (!formData.canFly && !formData.canSwim && !formData.canRun) {
+    if (!formData.canFly && !formData.canSwim && !formData.canRun && !formData.canWalk) {
       alert('El ave debe tener al menos una capacidad');
       return;
     }
@@ -156,13 +172,20 @@ export default function BirdsPage() {
       };
     }
 
+    if (formData.canWalk) {
+      capabilities.canWalk = {
+        description: formData.walkDescription || `${formData.name} camina`,
+        speed: parseInt(formData.walkSpeed, 10) || 5,
+      };
+    }
+
     const newBird = new DynamicBird(formData.name, formData.species, capabilities);
     
     // Guardar en JSON a través de la API
     await saveBirdToAPI(newBird);
     
-    // Actualizar estado local
-    setBirds([...birds, newBird]);
+    // Recargar lista desde la API para asegurar sincronización
+    await loadBirds();
 
     // Reset form
     setFormData({
@@ -177,13 +200,16 @@ export default function BirdsPage() {
       canRun: false,
       runDescription: '',
       runSpeed: '',
+      canWalk: false,
+      walkDescription: '',
+      walkSpeed: '',
     });
   };
 
   return (
     <div style={styles.container}>
       <header style={styles.header}>
-        <h1>🦅 Sistema de Aves - Interface Segregation Principle</h1>
+        <h1>🦅 Veterinaria de Aves</h1>
         <nav style={styles.nav}>
           <Link href="/" style={styles.link}>Productos</Link>
           <Link href="/parking" style={styles.link}>Estacionamiento</Link>
@@ -210,7 +236,7 @@ export default function BirdsPage() {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   style={styles.input}
-                  placeholder="Ej: Loro Amazónico"
+                  placeholder="Ejemplo: Firindongo"
                 />
               </div>
 
@@ -221,7 +247,7 @@ export default function BirdsPage() {
                   value={formData.species}
                   onChange={(e) => setFormData({ ...formData, species: e.target.value })}
                   style={styles.input}
-                  placeholder="Ej: Loro"
+                  placeholder="Ejemplo: Loro"
                 />
               </div>
             </div>
@@ -321,6 +347,37 @@ export default function BirdsPage() {
                   </div>
                 )}
               </div>
+
+              {/* Capacidad de caminar */}
+              <div style={styles.capabilityCard}>
+                <div style={styles.checkboxGroup}>
+                  <input
+                    type="checkbox"
+                    checked={formData.canWalk}
+                    onChange={(e) => setFormData({ ...formData, canWalk: e.target.checked })}
+                    style={styles.checkbox}
+                  />
+                  <label style={styles.checkboxLabel}>🚶 Puede Caminar (IWalkable)</label>
+                </div>
+                {formData.canWalk && (
+                  <div style={styles.capabilityDetails}>
+                    <input
+                      type="text"
+                      value={formData.walkDescription}
+                      onChange={(e) => setFormData({ ...formData, walkDescription: e.target.value })}
+                      placeholder="Descripción de la caminata"
+                      style={styles.input}
+                    />
+                    <input
+                      type="number"
+                      value={formData.walkSpeed}
+                      onChange={(e) => setFormData({ ...formData, walkSpeed: e.target.value })}
+                      placeholder="Velocidad de caminata (km/h)"
+                      style={styles.input}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
 
             <button type="submit" style={styles.submitButton}>
@@ -329,6 +386,31 @@ export default function BirdsPage() {
           </form>
         </section>
 
+        {/* Galería de Aves */}
+        <section style={styles.section}>
+          <h2>🦅 Galería de Aves, Cantidad Disponible: {birds.length}</h2>
+          <p style={styles.description}>
+            Cada ave implementa solo las interfaces que necesita. No todas las aves pueden volar,
+            nadar, correr o caminar. Este es un ejemplo perfecto del ISP: las interfaces están segregadas
+            según las capacidades específicas.
+          </p>
+
+          {isLoading ? (
+            <p style={styles.description}>⏳ Cargando aves...</p>
+          ) : birds.length === 0 ? (
+            <p style={styles.description}>📝 No hay aves registradas. ¡Crea tu primera ave arriba!</p>
+          ) : (
+            <div style={styles.grid}>
+              {birds.map((bird, index) => (
+                <BirdCard 
+                  key={index} 
+                  bird={bird} 
+                  abilities={getBirdAbilities(bird)} 
+                />
+              ))}
+            </div>
+          )}
+        </section>
         
       </main>
     </div>
