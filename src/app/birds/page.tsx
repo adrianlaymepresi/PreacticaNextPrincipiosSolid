@@ -208,7 +208,8 @@ export default function BirdsPage() {
       <header style={styles.header}>
         <h1>🦅 Veterinaria de Aves</h1>
         <nav style={styles.nav}>
-          <Link href="/" style={styles.link}>Productos</Link>
+          <Link href="/" style={styles.link}>Inicio</Link>
+          <Link href="/products" style={styles.link}>Productos</Link>
           <Link href="/parking" style={styles.link}>Estacionamiento</Link>
           <Link href="/birds" style={styles.link}>Aves</Link>
         </nav>

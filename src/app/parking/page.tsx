@@ -157,7 +157,8 @@ export default function ParkingPage() {
       <header style={styles.header}>
         <h1>🚗 Control de Estacionamiento</h1>
         <nav style={styles.nav}>
-          <Link href="/" style={styles.link}>Productos</Link>
+          <Link href="/" style={styles.link}>Inicio</Link>
+          <Link href="/products" style={styles.link}>Productos</Link>
           <Link href="/parking" style={styles.link}>Estacionamiento</Link>
           <Link href="/birds" style={styles.link}>Aves</Link>
         </nav>

@@ -11,8 +11,16 @@
     "id": "gjz2gw9de",
     "vehiclePlate": "1990KIL",
     "entryTime": "2026-02-16T15:19:29.123Z",
-    "exitTime": null,
+    "exitTime": "2026-02-16T19:39:18.318Z",
     "vehicleType": "truck",
-    "feeCharged": null
+    "feeCharged": 75
+  },
+  {
+    "id": "2hgenclbs",
+    "vehiclePlate": "1290JUA",
+    "entryTime": "2026-02-16T19:40:43.982Z",
+    "exitTime": "2026-02-16T19:40:46.797Z",
+    "vehicleType": "truck",
+    "feeCharged": 12
   }
 ]

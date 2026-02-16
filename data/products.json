@@ -2,7 +2,7 @@
   {
     "id": "vw3i633ax",
     "name": "Coca Cola 3 Litros",
-    "acquisitionPrice": 15,
+    "acquisitionPrice": 5,
     "category": "Alimentos",
     "type": "food",
     "expirationDate": "2026-07-17T00:00:00.000Z"
@@ -10,7 +10,7 @@
   {
     "id": "qa3xkc9lj",
     "name": "Chocapic",
-    "acquisitionPrice": 60,
+    "acquisitionPrice": 6,
     "category": "Alimentos",
     "type": "food",
     "expirationDate": "2026-08-01T00:00:00.000Z"
