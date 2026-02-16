@@ -1,12 +1,6 @@
 import { Product } from '../models/Product';
 import { IProductRepository } from '../interfaces/IProductRepository';
 
-// ============================================
-// PRINCIPIOS: 
-// - Single Responsibility Principle (SRP): Solo maneja la lógica de productos
-// - Dependency Inversion Principle (DIP): Depende de IProductRepository (abstracción), no de implementación concreta
-// ============================================
-
 export class ProductService {
   constructor(private productRepository: IProductRepository) {}
 

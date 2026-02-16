@@ -1,14 +1,6 @@
 import { ParkingRecord } from '../models/ParkingRecord';
 import { IParkingRepository } from '../interfaces/IParkingRepository';
 
-// ============================================
-// PRINCIPIO: Dependency Inversion Principle (DIP)
-// Implementación concreta del repositorio que usa archivos JSON como persistencia
-// Puede reemplazar a InMemoryParkingRepository sin afectar el código que depende de la interfaz
-// PRINCIPIO: Single Responsibility Principle (SRP)
-// Su única responsabilidad es manejar la persistencia de registros de estacionamiento mediante la API
-// ============================================
-
 interface SerializedParkingRecord {
   id: string;
   vehiclePlate: string;
@@ -23,14 +15,12 @@ export class JsonParkingRepository implements IParkingRepository {
   private loadPromise: Promise<void> | null = null;
 
   constructor() {
-    // Inicializar carga solo si estamos en el navegador (client-side)
     if (typeof window !== 'undefined') {
       this.loadPromise = this.loadFromAPI();
     }
   }
 
   private async loadFromAPI(): Promise<void> {
-    // Solo cargar si estamos en el navegador
     if (typeof window === 'undefined') {
       this.cache = [];
       return;

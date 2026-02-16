@@ -2,12 +2,6 @@ import { ParkingRecord } from '../models/ParkingRecord';
 import { IParkingRepository } from '../interfaces/IParkingRepository';
 import { IParkingRateStrategy } from '../interfaces/IParkingRateStrategy';
 
-// ============================================
-// PRINCIPIOS:
-// - Single Responsibility Principle (SRP): Solo maneja la lógica de estacionamiento
-// - Dependency Inversion Principle (DIP): Depende de IParkingRepository y IParkingRateStrategy (abstracciones)
-// ============================================
-
 export class ParkingService {
   constructor(
     private parkingRepository: IParkingRepository,

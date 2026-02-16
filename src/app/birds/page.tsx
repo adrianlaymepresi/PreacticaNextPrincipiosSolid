@@ -6,7 +6,6 @@ import { DynamicBird, BirdCapabilities } from '../../models/birds/DynamicBird';
 import { IFlyable, ISwimmable, IRunnable, IWalkable } from '../../interfaces/BirdInterfaces';
 import Link from 'next/link';
 
-// Interfaz para datos serializados
 interface SerializedBird {
   name: string;
   species: string;
@@ -14,11 +13,9 @@ interface SerializedBird {
 }
 
 export default function BirdsPage() {
-  // Estado para aves (todas se persisten en JSON)
   const [birds, setBirds] = useState<DynamicBird[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   
-  // Cargar aves desde la API al montar el componente
   useEffect(() => {
     loadBirds();
   }, []);
@@ -213,8 +210,7 @@ export default function BirdsPage() {
         <nav style={styles.nav}>
           <Link href="/" style={styles.link}>Productos</Link>
           <Link href="/parking" style={styles.link}>Estacionamiento</Link>
-          <Link href="/birds" style={styles.link}>Aves (ISP)</Link>
-          <Link href="/principles" style={styles.link}>Principios SOLID</Link>
+          <Link href="/birds" style={styles.link}>Aves</Link>
         </nav>
       </header>
 

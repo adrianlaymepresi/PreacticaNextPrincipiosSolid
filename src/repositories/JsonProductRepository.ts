@@ -4,14 +4,6 @@ import { ElectronicProduct } from '../models/ElectronicProduct';
 import { ClothingProduct } from '../models/ClothingProduct';
 import { IProductRepository } from '../interfaces/IProductRepository';
 
-// ============================================
-// PRINCIPIO: Dependency Inversion Principle (DIP)
-// Implementación concreta del repositorio que usa archivos JSON como persistencia
-// Puede reemplazar a InMemoryProductRepository sin afectar el código que depende de la interfaz
-// PRINCIPIO: Single Responsibility Principle (SRP)
-// Su única responsabilidad es manejar la persistencia de productos mediante la API
-// ============================================
-
 interface SerializedProduct {
   type: 'food' | 'electronic' | 'clothing';
   id: string;
@@ -25,21 +17,17 @@ interface SerializedProduct {
   material?: string;
 }
 
-// Versión con métodos síncronos para compatibilidad con la interfaz existente
-// Usa un caché local y sincroniza con la API de forma asíncrona
 export class JsonProductRepositorySync implements IProductRepository {
   private cache: Product[] = [];
   private loadPromise: Promise<void> | null = null;
 
   constructor() {
-    // Inicializar carga solo si estamos en el navegador (client-side)
     if (typeof window !== 'undefined') {
       this.loadPromise = this.loadFromAPI();
     }
   }
 
   private async loadFromAPI(): Promise<void> {
-    // Solo cargar si estamos en el navegador
     if (typeof window === 'undefined') {
       this.cache = [];
       return;

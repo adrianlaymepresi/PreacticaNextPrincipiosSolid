@@ -1,10 +1,5 @@
 import { Product } from '../models/Product';
 
-// ============================================
-// PRINCIPIO: Single Responsibility Principle (SRP)
-// Esta clase tiene UNA SOLA responsabilidad: calcular precios con descuentos
-// ============================================
-
 export class PriceCalculator {
   calculateWithDiscount(product: Product, discountPercentage: number): number {
     const price = product.calculatePrice();

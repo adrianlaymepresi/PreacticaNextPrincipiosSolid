@@ -6,21 +6,14 @@ import { ElectronicProduct } from '@/models/ElectronicProduct';
 import { ClothingProduct } from '@/models/ClothingProduct';
 import { Product } from '@/models/Product';
 
-// ============================================
-// PRINCIPIO: Single Responsibility Principle (SRP)
-// Esta API tiene una sola responsabilidad: manejar la persistencia de productos en JSON
-// ============================================
-
 const DATA_FILE = path.join(process.cwd(), 'data', 'products.json');
 
-// Interfaz para datos serializados
 interface SerializedProduct {
   type: 'food' | 'electronic' | 'clothing';
   id: string;
   name: string;
   acquisitionPrice: number;
   category: string;
-  // Campos específicos
   expirationDate?: string;
   warrantyMonths?: number;
   brand?: string;
@@ -28,7 +21,6 @@ interface SerializedProduct {
   material?: string;
 }
 
-// Función para serializar productos
 function serializeProduct(product: Product): SerializedProduct {
   const base = {
     id: product.id,
@@ -62,7 +54,6 @@ function serializeProduct(product: Product): SerializedProduct {
   throw new Error('Unknown product type');
 }
 
-// Función para deserializar productos
 function deserializeProduct(data: SerializedProduct): Product {
   switch (data.type) {
     case 'food':
@@ -93,7 +84,6 @@ function deserializeProduct(data: SerializedProduct): Product {
   }
 }
 
-// GET - Obtener todos los productos
 export async function GET() {
   try {
     const fileContent = await fs.readFile(DATA_FILE, 'utf-8');
@@ -101,7 +91,6 @@ export async function GET() {
     const products = data.map(deserializeProduct);
     return NextResponse.json(products.map(serializeProduct));
   } catch (error) {
-    // Si el archivo no existe o está vacío, devolver array vacío
     return NextResponse.json([]);
   }
 }
@@ -118,14 +107,11 @@ export async function POST(request: Request) {
       const fileContent = await fs.readFile(DATA_FILE, 'utf-8');
       products = JSON.parse(fileContent);
     } catch (error) {
-      // Si el archivo no existe, iniciamos con array vacío
       products = [];
     }
 
-    // Agregar nuevo producto
     products.push(newProduct);
 
-    // Guardar en archivo
     await fs.writeFile(DATA_FILE, JSON.stringify(products, null, 2), 'utf-8');
 
     return NextResponse.json({ success: true, product: newProduct });
@@ -134,7 +120,6 @@ export async function POST(request: Request) {
   }
 }
 
-// DELETE - Eliminar un producto
 export async function DELETE(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
@@ -144,11 +129,10 @@ export async function DELETE(request: Request) {
       return NextResponse.json({ success: false, error: 'ID no proporcionado' }, { status: 400 });
     }
 
-    // Leer productos existentes
     const fileContent = await fs.readFile(DATA_FILE, 'utf-8');
     let products: SerializedProduct[] = JSON.parse(fileContent);
 
-    // Filtrar el producto eliminado
+    products = products.filter(p => p.id !== id);
     products = products.filter((p) => p.id !== id);
 
     // Guardar en archivo

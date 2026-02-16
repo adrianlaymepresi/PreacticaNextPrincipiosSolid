@@ -1,12 +1,5 @@
 import { Bird, IFlyable, ISwimmable, IRunnable, IWalkable } from '../../interfaces/BirdInterfaces';
 
-// ============================================
-// PRINCIPIO: Interface Segregation Principle (ISP)
-// DynamicBird es una implementación flexible que permite crear aves
-// con capacidades configurables, manteniendo el ISP al implementar
-// solo las interfaces para las capacidades que el ave posee
-// ============================================
-
 export interface BirdCapabilities {
   canFly?: {
     description: string;
@@ -34,7 +27,6 @@ export class DynamicBird extends Bird implements Partial<IFlyable & ISwimmable &
     this.capabilities = capabilities;
   }
 
-  // Implementa IFlyable solo si tiene la capacidad
   fly(): string {
     if (!this.capabilities.canFly) {
       throw new Error(`${this.name} no puede volar`);
@@ -49,7 +41,6 @@ export class DynamicBird extends Bird implements Partial<IFlyable & ISwimmable &
     return this.capabilities.canFly.speed;
   }
 
-  // Implementa ISwimmable solo si tiene la capacidad
   swim(): string {
     if (!this.capabilities.canSwim) {
       throw new Error(`${this.name} no puede nadar`);
@@ -64,7 +55,6 @@ export class DynamicBird extends Bird implements Partial<IFlyable & ISwimmable &
     return this.capabilities.canSwim.depth;
   }
 
-  // Implementa IRunnable solo si tiene la capacidad
   run(): string {
     if (!this.capabilities.canRun) {
       throw new Error(`${this.name} no puede correr`);
@@ -79,7 +69,6 @@ export class DynamicBird extends Bird implements Partial<IFlyable & ISwimmable &
     return this.capabilities.canRun.speed;
   }
 
-  // Implementa IWalkable solo si tiene la capacidad
   walk(): string {
     if (!this.capabilities.canWalk) {
       throw new Error(`${this.name} no puede caminar`);
@@ -94,7 +83,6 @@ export class DynamicBird extends Bird implements Partial<IFlyable & ISwimmable &
     return this.capabilities.canWalk.speed;
   }
 
-  // Métodos auxiliares para verificar capacidades
   canFlyCheck(): boolean {
     return !!this.capabilities.canFly;
   }

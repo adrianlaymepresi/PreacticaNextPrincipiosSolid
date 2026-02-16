@@ -1,13 +1,7 @@
 import { Product } from './Product';
 
-// ============================================
-// PRINCIPIO: Liskov Substitution Principle (LSP)
-// FoodProduct puede sustituir a Product sin problemas
-// Los alimentos tienen IVA reducido del 5%
-// ============================================
-
 export class FoodProduct extends Product {
-  private static readonly TAX_RATE = 0.05; // 5% IVA para alimentos
+  private static readonly TAX_RATE = 0.05;
 
   constructor(
     id: string,
@@ -23,10 +17,8 @@ export class FoodProduct extends Product {
   }
 
   calculatePrice(): number {
-    // Precio base con 20% de ganancia
     let finalPrice = this.calculateBaseWithProfit();
 
-    // Aplicar IVA del 5%
     finalPrice = finalPrice * (1 + FoodProduct.TAX_RATE);
 
     // Si el producto está próximo a vencer (menos de 3 días), aplicar descuento del 30%

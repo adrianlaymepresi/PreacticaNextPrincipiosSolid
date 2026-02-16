@@ -1,8 +1,8 @@
 import './globals.css'
 
 export const metadata = {
-  title: 'Supermercado SOLID',
-  description: 'Demostración de Principios SOLID con Next.js',
+  title: 'Sistema de Gestión',
+  description: 'Sistema integral de productos, estacionamiento y aves',
 }
 
 export default function RootLayout({

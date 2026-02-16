@@ -7,7 +7,6 @@ import { ParkingRecord } from '../../models/ParkingRecord';
 import Link from 'next/link';
 import { StandardRateStrategy, WeekendRateStrategy, VIPRateStrategy } from '../../strategies/ParkingRateStrategies';
 
-// Interfaz para datos serializados
 interface SerializedParkingRecord {
   id: string;
   vehiclePlate: string;
@@ -17,7 +16,6 @@ interface SerializedParkingRecord {
   feeCharged: number | null;
 }
 
-// Función para deserializar registros
 function deserializeRecord(data: SerializedParkingRecord): ParkingRecord {
   return new ParkingRecord(
     data.id,
@@ -29,7 +27,6 @@ function deserializeRecord(data: SerializedParkingRecord): ParkingRecord {
   );
 }
 
-// Función para formatear números de manera consistente
 const formatCurrency = (value: number): string => {
   return new Intl.NumberFormat('es-CO', {
     minimumFractionDigits: 0,
@@ -162,8 +159,7 @@ export default function ParkingPage() {
         <nav style={styles.nav}>
           <Link href="/" style={styles.link}>Productos</Link>
           <Link href="/parking" style={styles.link}>Estacionamiento</Link>
-          <Link href="/birds" style={styles.link}>Aves (ISP)</Link>
-          <Link href="/principles" style={styles.link}>Principios SOLID</Link>
+          <Link href="/birds" style={styles.link}>Aves</Link>
         </nav>
       </header>
 

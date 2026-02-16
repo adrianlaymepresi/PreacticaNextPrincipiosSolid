@@ -2,7 +2,6 @@
 
 import { Product } from '../models/Product';
 
-// Función para formatear números de manera consistente
 const formatCurrency = (value: number): string => {
   return new Intl.NumberFormat('es-CO', {
     minimumFractionDigits: 0,

@@ -1,13 +1,7 @@
 import { Product } from './Product';
 
-// ============================================
-// PRINCIPIO: Liskov Substitution Principle (LSP)
-// ClothingProduct puede sustituir a Product sin problemas
-// La ropa tiene IVA del 10%
-// ============================================
-
 export class ClothingProduct extends Product {
-  private static readonly TAX_RATE = 0.10; // 10% IVA para ropa
+  private static readonly TAX_RATE = 0.10;
 
   constructor(
     id: string,
@@ -24,10 +18,9 @@ export class ClothingProduct extends Product {
   }
 
   calculatePrice(): number {
-    // Precio base con 20% de ganancia
     let finalPrice = this.calculateBaseWithProfit();
 
-    // Aplicar IVA del 10%
+    finalPrice = finalPrice * (1 + ClothingProduct.TAX_RATE);
     finalPrice = finalPrice * (1 + ClothingProduct.TAX_RATE);
 
     return Math.round(finalPrice);

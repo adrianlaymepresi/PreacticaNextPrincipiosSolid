@@ -10,7 +10,6 @@ import { ClothingProduct } from '../models/ClothingProduct';
 import { Product } from '../models/Product';
 import Link from 'next/link';
 
-// Interfaces para datos serializados
 interface SerializedProduct {
   type: 'food' | 'electronic' | 'clothing';
   id: string;
@@ -24,7 +23,6 @@ interface SerializedProduct {
   material?: string;
 }
 
-// Función para deserializar productos
 function deserializeProduct(data: SerializedProduct): Product {
   switch (data.type) {
     case 'food':
@@ -55,7 +53,6 @@ function deserializeProduct(data: SerializedProduct): Product {
   }
 }
 
-// Función para formatear números de manera consistente
 const formatCurrency = (value: number): string => {
   return new Intl.NumberFormat('es-CO', {
     minimumFractionDigits: 0,
@@ -68,14 +65,12 @@ export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   
-  // Estados del formulario
   const [showForm, setShowForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [productName, setProductName] = useState('');
   const [acquisitionPrice, setAcquisitionPrice] = useState('');
   const [category, setCategory] = useState<'Alimentos' | 'Electrónicos' | 'Ropa'>('Alimentos');
   
-  // Campos específicos por categoría
   const [expirationDate, setExpirationDate] = useState('');
   const [warrantyMonths, setWarrantyMonths] = useState('12');
   const [brand, setBrand] = useState('');
@@ -84,7 +79,6 @@ export default function Home() {
 
   const priceCalculator = new PriceCalculator();
 
-  // Cargar productos desde la API
   useEffect(() => {
     loadProducts();
   }, []);
@@ -275,12 +269,10 @@ export default function Home() {
     <div style={styles.container}>
       <header style={styles.header}>
         <h1>🏪 Supermercado SOLID</h1>
-        <p>Demostración de Principios SOLID en Next.js</p>
         <nav style={styles.nav}>
           <Link href="/" style={styles.link}>Productos</Link>
           <Link href="/parking" style={styles.link}>Estacionamiento</Link>
-          <Link href="/birds" style={styles.link}>Aves (ISP)</Link>
-          <Link href="/principles" style={styles.link}>Principios SOLID</Link>
+          <Link href="/birds" style={styles.link}>Aves</Link>
         </nav>
       </header>
 

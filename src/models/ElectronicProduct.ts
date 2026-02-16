@@ -1,13 +1,7 @@
 import { Product } from './Product';
 
-// ============================================
-// PRINCIPIO: Liskov Substitution Principle (LSP)
-// ElectronicProduct puede sustituir a Product sin problemas
-// Los electrónicos tienen IVA estándar del 19%
-// ============================================
-
 export class ElectronicProduct extends Product {
-  private static readonly TAX_RATE = 0.19; // 19% IVA para electrónicos
+  private static readonly TAX_RATE = 0.19;
 
   constructor(
     id: string,
@@ -24,10 +18,9 @@ export class ElectronicProduct extends Product {
   }
 
   calculatePrice(): number {
-    // Precio base con 20% de ganancia
     let finalPrice = this.calculateBaseWithProfit();
 
-    // Aplicar IVA del 19%
+    finalPrice = finalPrice * (1 + ElectronicProduct.TAX_RATE);
     finalPrice = finalPrice * (1 + ElectronicProduct.TAX_RATE);
 
     // Los productos con garantía extendida tienen un recargo del 5%

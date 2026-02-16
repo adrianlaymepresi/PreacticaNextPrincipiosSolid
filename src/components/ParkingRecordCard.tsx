@@ -2,7 +2,6 @@
 
 import { ParkingRecord } from '../models/ParkingRecord';
 
-// Función para formatear fechas de manera consistente
 const formatDateTime = (date: Date): string => {
   return new Intl.DateTimeFormat('es-CO', {
     year: 'numeric',
@@ -13,7 +12,6 @@ const formatDateTime = (date: Date): string => {
   }).format(date);
 };
 
-// Función para formatear números de manera consistente
 const formatCurrency = (value: number): string => {
   return new Intl.NumberFormat('es-CO', {
     minimumFractionDigits: 0,
