@@ -2,10 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import BirdCard from '../../components/BirdCard';
-import { Eagle } from '../../models/birds/Eagle';
-import { Duck } from '../../models/birds/Duck';
-import { Penguin } from '../../models/birds/Penguin';
-import { Ostrich } from '../../models/birds/Ostrich';
 import { DynamicBird, BirdCapabilities } from '../../models/birds/DynamicBird';
 import { IFlyable, ISwimmable, IRunnable } from '../../interfaces/BirdInterfaces';
 import Link from 'next/link';
@@ -18,34 +14,26 @@ interface SerializedBird {
 }
 
 export default function BirdsPage() {
-  // Aves predeterminadas de ejemplo (hard-coded, no se persisten)
-  const defaultBirds = [
-    new Eagle('Águila Real'),
-    new Duck('Pato Donald'),
-    new Penguin('Pingüino Emperador'),
-    new Ostrich('Avestruz Africana'),
-  ];
-
-  // Estado para aves creadas dinámicamente (se persisten en JSON)
-  const [customBirds, setCustomBirds] = useState<DynamicBird[]>([]);
+  // Estado para aves (todas se persisten en JSON)
+  const [birds, setBirds] = useState<DynamicBird[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   
-  // Cargar aves personalizadas desde la API al montar el componente
+  // Cargar aves desde la API al montar el componente
   useEffect(() => {
-    loadCustomBirds();
+    loadBirds();
   }, []);
 
-  const loadCustomBirds = async () => {
+  const loadBirds = async () => {
     try {
       const response = await fetch('/api/birds', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       });
       const data: SerializedBird[] = await response.json();
-      const birds = data.map(
+      const loadedBirds = data.map(
         (b) => new DynamicBird(b.name, b.species, b.capabilities)
       );
-      setCustomBirds(birds);
+      setBirds(loadedBirds);
     } catch (error) {
       console.error('Error loading custom birds:', error);
     } finally {
@@ -174,7 +162,7 @@ export default function BirdsPage() {
     await saveBirdToAPI(newBird);
     
     // Actualizar estado local
-    setCustomBirds([...customBirds, newBird]);
+    setBirds([...birds, newBird]);
 
     // Reset form
     setFormData({
@@ -191,9 +179,6 @@ export default function BirdsPage() {
       runSpeed: '',
     });
   };
-
-  // Combinar aves predeterminadas y personalizadas
-  const allBirds = [...defaultBirds, ...customBirds];
 
   return (
     <div style={styles.container}>
@@ -344,65 +329,7 @@ export default function BirdsPage() {
           </form>
         </section>
 
-        <section style={styles.section}>
-          <h2>🦅 Galería de Aves ({allBirds.length})</h2>
-          <p style={styles.description}>
-            Cada ave implementa solo las interfaces que necesita. No todas las aves pueden volar,
-            nadar o correr. Este es un ejemplo perfecto del ISP: las interfaces están segregadas
-            según las capacidades específicas.
-          </p>
-
-          <div style={styles.legend}>
-            <h3>Interfaces implementadas:</h3>
-            <ul style={styles.legendUl}>
-              <li style={styles.legendLi}><strong>IFlyable:</strong> Aves que pueden volar</li>
-              <li style={styles.legendLi}><strong>ISwimmable:</strong> Aves que pueden nadar</li>
-              <li style={styles.legendLi}><strong>IRunnable:</strong> Aves que pueden correr</li>
-            </ul>
-          </div>
-
-          <div style={styles.grid}>
-            {allBirds.map((bird, index) => (
-              <BirdCard key={index} bird={bird} abilities={getBirdAbilities(bird)} />
-            ))}
-          </div>
-        </section>
-
-        <section style={styles.section}>
-          <h2>📊 Análisis de Implementación - Aves Predeterminadas</h2>
-          <div style={styles.analysisGrid}>
-            <div style={styles.analysisCard}>
-              <h3>🦅 Águila</h3>
-              <p>Implementa: IFlyable, IRunnable</p>
-              <p style={styles.reason}>Las águilas vuelan y caminan, pero no nadan.</p>
-            </div>
-            <div style={styles.analysisCard}>
-              <h3>🦆 Pato</h3>
-              <p>Implementa: IFlyable, ISwimmable, IRunnable</p>
-              <p style={styles.reason}>Los patos son versátiles: vuelan, nadan y caminan.</p>
-            </div>
-            <div style={styles.analysisCard}>
-              <h3>🐧 Pingüino</h3>
-              <p>Implementa: ISwimmable, IRunnable</p>
-              <p style={styles.reason}>Los pingüinos nadan y caminan, pero NO vuelan.</p>
-            </div>
-            <div style={styles.analysisCard}>
-              <h3>🦤 Avestruz</h3>
-              <p>Implementa: IRunnable</p>
-              <p style={styles.reason}>Los avestruces solo corren (¡muy rápido!)</p>
-            </div>
-          </div>
-          
-          {customBirds.length > 0 && (
-            <div style={{ marginTop: '20px' }}>
-              <h3>🎨 Aves Personalizadas Creadas: {customBirds.length}</h3>
-              <p style={styles.description}>
-                Las aves personalizadas demuestran el poder del ISP: cada una implementa
-                solo las interfaces necesarias según las capacidades que le asignaste.
-              </p>
-            </div>
-          )}
-        </section>
+        
       </main>
     </div>
   );

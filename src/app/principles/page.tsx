@@ -107,21 +107,21 @@ export default function PrinciplesPage() {
                   <strong>IFlyable, ISwimmable, IRunnable:</strong> Interfaces segregadas para aves
                 </li>
                 <li>
-                  <strong>Eagle:</strong> Implementa solo IFlyable e IRunnable (no nada)
+                  <strong>Aves que solo vuelan y corren:</strong> Implementan IFlyable e IRunnable (no nadan)
                 </li>
                 <li>
-                  <strong>Penguin:</strong> Implementa solo ISwimmable e IRunnable (no vuela)
+                  <strong>Aves acuáticas-terrestres:</strong> Implementan ISwimmable e IRunnable (no vuelan)
                 </li>
                 <li>
-                  <strong>Ostrich:</strong> Implementa solo IRunnable (no vuela ni nada)
+                  <strong>Aves solo terrestres:</strong> Implementan solo IRunnable (no vuelan ni nadan)
                 </li>
                 <li>
-                  <strong>Duck:</strong> Implementa las tres interfaces (versátil)
+                  <strong>Aves versátiles:</strong> Implementan las tres interfaces (vuelan, nadan y corren)
                 </li>
               </ul>
               <p style={styles.codeExample}>
                 En lugar de tener una interfaz grande "Bird" con métodos fly(), swim(), run(),
-                cada ave implementa solo las interfaces que necesita.
+                cada ave implementa solo las interfaces que necesita según sus capacidades.
               </p>
               <p style={styles.benefit}>
                 ✅ <strong>Beneficio:</strong> Interfaces más cohesivas y clases más simples.
@@ -188,7 +188,7 @@ export default function PrinciplesPage() {
                 VIPRateStrategy
               </li>
               <li>
-                <strong>Aves:</strong> Eagle, Duck, Penguin, Ostrich (demostración de ISP)
+                <strong>Aves Dinámicas:</strong> DynamicBird (demostración de ISP con capacidades configurables)
               </li>
             </ul>
           </div>
